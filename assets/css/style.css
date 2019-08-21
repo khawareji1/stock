@@ -1,0 +1,309 @@
+body{
+    
+    background: #FAFAFA;
+    padding-bottom: 33px;
+    padding-top: 60px;   
+}
+
+.material-date{
+    background: #f4f4f4;
+    padding: 4px;
+    margin:3px 0px;
+    display: block;
+}
+
+.post-thumb{
+    /* width:100%; */
+    width: auto;
+    height: auto;
+}
+
+.post-thumb-view{
+    width:100%;
+}
+/* ================================== */
+.row{
+    
+    margin-right: 0px;
+
+}
+.row.is-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row.is-flex > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+* And with max cross-browser enabled.
+* Nobody should ever write this by hand. 
+* Use a preprocesser with autoprefixing.
+*/
+.row.is-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.row.is-flex > [class*='col-'] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+/* ========================= */
+
+.thumbnail{
+    margin-bottom: 0px;
+    border: none;
+}
+
+.h3-margin-top-change{
+    margin-top: 0px;
+}
+
+.img-align-center{
+    text-align: center;
+}
+
+.container{
+    align-items: center;
+    text-align: left;
+}
+
+.tab-content{
+    margin-top: 20px;
+}
+
+.plus-button-larger{
+    height: 100%;
+    font-size:100px; 
+    align-content: space-around; 
+    align-items:center;
+}
+
+/* ========================= */
+
+.thumbnail img {
+    height:250px;
+    width:100%;
+}
+
+.row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .flex-text {
+    flex-grow: 1;
+    text-align: justify;
+    height:160px;
+}
+.post-thumb{
+    border: none;
+}
+/* ========================= */
+ul {
+    list-style-type: none;
+	padding: 0;
+}
+
+#sidebar-menu{
+    padding-top: 15px;
+}
+
+#sidebar-menu .main-menu a {
+    display: block;
+	font-size: 13px;
+	font-weight: 500;
+	color: #999;
+	padding: 4px 20px;
+}
+#sidebar-menu .main-menu a:hover {
+	color: #11427D;
+	text-decoration: none;
+	background-color: transparent;
+	border-left: 1px solid #11427D;
+}
+
+#sidebar-menu .sub-menu a {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 30px;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+/* Footer */
+
+footer{
+    background-color: #757575;
+    /* position: fixed; 
+     bottom: 0;
+     left: 0;
+     right: 0; */
+     height: 35px;
+     text-align: center;
+     color: #CCC;
+ }
+
+ footer p {
+     padding: 10.5px;
+     margin: 0px;
+     line-height: 100%;
+ }
+
+
+/* home text animations */
+
+#titleHomeDiv div {
+    margin-top: 1%;    
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+    text-align:center;
+    font-weight:300;
+    font-size:3.4vmax;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -webkit-transform: translate3d(0,0,0);
+  }
+   
+  #titleHomeDiv div:first-of-type {    
+    animation: showup 7s infinite;
+    padding-right: 20px;
+  }
+  
+  #titleHomeDiv div:last-of-type {
+    width:0px;
+    animation: reveal 7s infinite;
+  }
+  
+  #titleHomeDiv div:last-of-type span {
+    /* margin-left:-15px; */
+    animation: slidein 7s infinite;
+  }
+
+  @keyframes showup {
+      0% {opacity:0;}
+      20% {opacity:1;}
+      80% {opacity:1;}
+      100% {opacity:0;}
+  }
+  
+  @keyframes slidein {
+      0% { margin-left:-800px; }
+      20% { margin-left:-800px; }
+      35% { margin-left:0px; }
+      100% { margin-left:0px; }
+  }
+  
+  @keyframes reveal {
+      0% {opacity:0;width:0px;}
+      20% {opacity:1;width:0px;}
+      30% {width:400px;}
+      80% {opacity:1;}
+      100% {opacity:0;width:400px;}
+
+  }
+
+
+  /* icons */
+
+  
+  #howitworks div{
+    margin-top: 2%;    
+}
+
+
+
+
+/* inverse color */
+
+.inverseColor{
+    color:#19BC9C;
+}
+
+
+/* progress bar */
+/* .progress  .progress-bar{
+    animation-name: animateBar;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-duration: 5.0s;
+}
+
+@keyframes animateBar {
+    0% {transform: translateX(-100%);}
+    100% {transform: translateX(0);}
+} */
+
+.progress-bar {
+    transition-duration: 2s;
+    transition-timing-function: ease-out;
+  }
+.navt {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: black;
+  }
+  .navt li {
+    display: inline;
+  }
+  .navt a {
+    display: inline-block;
+    padding: 0 12px;
+    font-weight: normal;
+    color: white;
+    height: 44px;
+    line-height: 44px;
+  }
+  .navt li a:hover {
+    color: white;
+    background-color: pink;
+  }
+  .navt img {
+    vertical-align: middle;
+  }
+
+
+  /* =====================chat style ================ */
+
+.chat_style_send{
+    border: 2px solid #19BC9C;
+    border-radius: 5px;
+    padding: 10px;
+    background: #EEEEEE;
+    margin-top: 10px;
+}
+
+.chat_style_receive{
+    border: 2px solid #11427D;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: right;
+    background: #EEEEEE;
+    margin-top: 10px;
+}
+
+.h3-margin-bottom-change{
+    margin-bottom: 0px;
+}
+
+.navbar-brand{
+    padding-top: 2px;
+}
