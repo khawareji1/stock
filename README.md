@@ -1,1 +1,2 @@
-# stock
+#Stock Hub
+RDBMS Project
