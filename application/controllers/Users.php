@@ -138,11 +138,10 @@
 			redirect('home');
 		}
 
-		// forgot password
+	/*	// forgot password
 		public function forgotpassword(){
 
-            
-           $email=$_POST["email"];
+    $email=$_POST["email"];
 $conn = mysqli_connect("localhost","root","","stockhub");
 if(mysqli_connect_error())
 	{
@@ -170,8 +169,534 @@ if(mail($to, $subject, $message, $headers))
 }else{
 	echo "Failed to Recover your password, try again";
 }
+       
         }
+*/
+        
+        		// forgot password
+		public function forgotpassword(){
+			$email = $this->input->post('email');
+			$id = $this->user_model->check_email_exists($email, 1);
+			if(!empty($id)){
+				
+				$seed = str_split('abcdefghijklmnopqrstuvwxyz'
+								.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+								.'0123456789!@#$%^&*()');
+				$rand = '';
+				foreach (array_rand($seed, 10) as $k) $rand .= $seed[$k];
 
+				$hashpass = md5($rand);
+
+				$this->user_model->changePassword($hashpass , $id);
+				$this->send_mail($email, 'recovery' , $rand);
+
+			} else {
+				$this->session->set_flashdata('flash-warning', 'Incorrect Email. Please provide an email which is given while registration.');
+				redirect('users/login');
+			}
+		}
+
+		public function send_mail($to, $type = NULL , $password = NULL) { 
+
+			$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
+				'smtp_user' =>'khawarey16@gmail.com',
+				'smtp_pass' => '7209945082',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1'
+			);
+            
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+
+			if($type === NULL){
+				$this->session->set_flashdata("flash-danger","Internal Error : Mail Type not defined.");
+				redirect('home');
+			}
+			elseif($type === 'recovery'){
+				$subject = 'Password Recovery - StockHUB';
+				$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+				<html xmlns="http://www.w3.org/1999/xhtml">
+				  <head>
+					<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+					<title>Set up a new password</title>
+					<!--
+					The style block is collapsed on page load to save you some scrolling.
+					Postmark automatically inlines all CSS properties for maximum email client
+					compatibility. You can just update styles here, and Postmark does the rest.
+					-->
+					<style type="text/css" rel="stylesheet" media="all">
+					/* Base ------------------------------ */
+				
+					*:not(br):not(tr):not(html) {
+					  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+					  box-sizing: border-box;
+					}
+				
+					body {
+					  width: 100% !important;
+					  height: 100%;
+					  margin: 0;
+					  line-height: 1.4;
+					  background-color: #F2F4F6;
+					  color: #74787E;
+					  -webkit-text-size-adjust: none;
+					}
+				
+					p,
+					ul,
+					ol,
+					blockquote {
+					  line-height: 1.4;
+					  text-align: left;
+					}
+				
+					a {
+					  color: #3869D4;
+					}
+				
+					a img {
+					  border: none;
+					}
+				
+					td {
+					  word-break: break-word;
+					}
+					/* Layout ------------------------------ */
+				
+					.email-wrapper {
+					  width: 100%;
+					  margin: 0;
+					  padding: 0;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					  background-color: #F2F4F6;
+					}
+				
+					.email-content {
+					  width: 100%;
+					  margin: 0;
+					  padding: 0;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					}
+					/* Masthead ----------------------- */
+				
+					.email-masthead {
+					  padding: 25px 0;
+					  text-align: center;
+					}
+				
+					.email-masthead_logo {
+					  width: 94px;
+					}
+				
+					.email-masthead_name {
+					  font-size: 16px;
+					  font-weight: bold;
+					  color: #bbbfc3;
+					  text-decoration: none;
+					  text-shadow: 0 1px 0 white;
+					}
+					/* Body ------------------------------ */
+				
+					.email-body {
+					  width: 100%;
+					  margin: 0;
+					  padding: 0;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					  border-top: 1px solid #EDEFF2;
+					  border-bottom: 1px solid #EDEFF2;
+					  background-color: #FFFFFF;
+					}
+				
+					.email-body_inner {
+					  width: 570px;
+					  margin: 0 auto;
+					  padding: 0;
+					  -premailer-width: 570px;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					  background-color: #FFFFFF;
+					}
+				
+					.email-footer {
+					  width: 570px;
+					  margin: 0 auto;
+					  padding: 0;
+					  -premailer-width: 570px;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					  text-align: center;
+					}
+				
+					.email-footer p {
+					  color: #AEAEAE;
+					}
+				
+					.body-action {
+					  width: 100%;
+					  margin: 30px auto;
+					  padding: 0;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					  text-align: center;
+					}
+				
+					.body-sub {
+					  margin-top: 25px;
+					  padding-top: 25px;
+					  border-top: 1px solid #EDEFF2;
+					}
+				
+					.content-cell {
+					  padding: 35px;
+					}
+				
+					.preheader {
+					  display: none !important;
+					  visibility: hidden;
+					  mso-hide: all;
+					  font-size: 1px;
+					  line-height: 1px;
+					  max-height: 0;
+					  max-width: 0;
+					  opacity: 0;
+					  overflow: hidden;
+					}
+					/* Attribute list ------------------------------ */
+				
+					.attributes {
+					  margin: 0 0 21px;
+					}
+				
+					.attributes_content {
+					  background-color: #EDEFF2;
+					  padding: 16px;
+					}
+				
+					.attributes_item {
+					  padding: 0;
+					}
+					/* Related Items ------------------------------ */
+				
+					.related {
+					  width: 100%;
+					  margin: 0;
+					  padding: 25px 0 0 0;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					}
+				
+					.related_item {
+					  padding: 10px 0;
+					  color: #74787E;
+					  font-size: 15px;
+					  line-height: 18px;
+					}
+				
+					.related_item-title {
+					  display: block;
+					  margin: .5em 0 0;
+					}
+				
+					.related_item-thumb {
+					  display: block;
+					  padding-bottom: 10px;
+					}
+				
+					.related_heading {
+					  border-top: 1px solid #EDEFF2;
+					  text-align: center;
+					  padding: 25px 0 10px;
+					}
+					/* Discount Code ------------------------------ */
+				
+					.discount {
+					  width: 100%;
+					  margin: 0;
+					  padding: 24px;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					  background-color: #EDEFF2;
+					  border: 2px dashed #9BA2AB;
+					}
+				
+					.discount_heading {
+					  text-align: center;
+					}
+				
+					.discount_body {
+					  text-align: center;
+					  font-size: 15px;
+					}
+					/* Social Icons ------------------------------ */
+				
+					.social {
+					  width: auto;
+					}
+				
+					.social td {
+					  padding: 0;
+					  width: auto;
+					}
+				
+					.social_icon {
+					  height: 20px;
+					  margin: 0 8px 10px 8px;
+					  padding: 0;
+					}
+					/* Data table ------------------------------ */
+				
+					.purchase {
+					  width: 100%;
+					  margin: 0;
+					  padding: 35px 0;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					}
+				
+					.purchase_content {
+					  width: 100%;
+					  margin: 0;
+					  padding: 25px 0 0 0;
+					  -premailer-width: 100%;
+					  -premailer-cellpadding: 0;
+					  -premailer-cellspacing: 0;
+					}
+				
+					.purchase_item {
+					  padding: 10px 0;
+					  color: #74787E;
+					  font-size: 15px;
+					  line-height: 18px;
+					}
+				
+					.purchase_heading {
+					  padding-bottom: 8px;
+					  border-bottom: 1px solid #EDEFF2;
+					}
+				
+					.purchase_heading p {
+					  margin: 0;
+					  color: #9BA2AB;
+					  font-size: 12px;
+					}
+				
+					.purchase_footer {
+					  padding-top: 15px;
+					  border-top: 1px solid #EDEFF2;
+					}
+				
+					.purchase_total {
+					  margin: 0;
+					  text-align: right;
+					  font-weight: bold;
+					  color: #2F3133;
+					}
+				
+					.purchase_total--label {
+					  padding: 0 15px 0 0;
+					}
+					/* Utilities ------------------------------ */
+				
+					.align-right {
+					  text-align: right;
+					}
+				
+					.align-left {
+					  text-align: left;
+					}
+				
+					.align-center {
+					  text-align: center;
+					}
+					/*Media Queries ------------------------------ */
+				
+					@media only screen and (max-width: 600px) {
+					  .email-body_inner,
+					  .email-footer {
+						width: 100% !important;
+					  }
+					}
+				
+					@media only screen and (max-width: 500px) {
+					  .button {
+						width: 100% !important;
+					  }
+					}
+					/* Buttons ------------------------------ */
+				
+					.button {
+					  background-color: #3869D4;
+					  border-top: 10px solid #3869D4;
+					  border-right: 18px solid #3869D4;
+					  border-bottom: 10px solid #3869D4;
+					  border-left: 18px solid #3869D4;
+					  display: inline-block;
+					  color: #FFF;
+					  text-decoration: none;
+					  border-radius: 3px;
+					  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+					  -webkit-text-size-adjust: none;
+					}
+				
+					.button--green {
+					  background-color: #22BC66;
+					  border-top: 10px solid #22BC66;
+					  border-right: 18px solid #22BC66;
+					  border-bottom: 10px solid #22BC66;
+					  border-left: 18px solid #22BC66;
+					}
+				
+					.button--red {
+					  background-color: #FF6136;
+					  border-top: 10px solid #FF6136;
+					  border-right: 18px solid #FF6136;
+					  border-bottom: 10px solid #FF6136;
+					  border-left: 18px solid #FF6136;
+					}
+					/* Type ------------------------------ */
+				
+					h1 {
+					  margin-top: 0;
+					  color: #2F3133;
+					  font-size: 19px;
+					  font-weight: bold;
+					  text-align: left;
+					}
+				
+					h2 {
+					  margin-top: 0;
+					  color: #2F3133;
+					  font-size: 16px;
+					  font-weight: bold;
+					  text-align: left;
+					}
+				
+					h3 {
+					  margin-top: 0;
+					  color: #2F3133;
+					  font-size: 14px;
+					  font-weight: bold;
+					  text-align: left;
+					}
+				
+					p {
+					  margin-top: 0;
+					  color: #74787E;
+					  font-size: 16px;
+					  line-height: 1.5em;
+					  text-align: left;
+					}
+				
+					p.sub {
+					  font-size: 12px;
+					}
+				
+					p.center {
+					  text-align: center;
+					}
+					</style>
+				  </head>
+				  <body>
+					<span class="preheader">Use this link to reset your password. The link is only valid for 24 hours.</span>
+					<table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
+					  <tr>
+						<td align="center">
+						  <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+							  <td class="email-masthead">
+								<a href="www.stockhub.tk" class="email-masthead_name">
+						StockHub
+					  </a>
+							  </td>
+							</tr>
+							<!-- Email Body -->
+							<tr>
+							  <td class="email-body" width="100%" cellpadding="0" cellspacing="0">
+								<table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0">
+								  <!-- Body content -->
+								  <tr>
+									<td class="content-cell">
+									  <h1>Hi,</h1>
+									  <p>You recently requested to reset your password for your <strong></strong>StockHub</strong> account. Follow the instructions to change it. <br><br><strong>Your Password is successfully changed to "'.$password.'" (without the quotes)</strong></p>
+									  <!-- Action -->
+									  <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
+										<tr>
+										  <td align="center">
+											<!-- Border based button
+									   https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+										 
+									  <p>You can now login to your account using this temporary password and change it in the dashboard</p>
+									  <p>Thanks,
+										<br>The StockHub Team</p>
+									  <!-- Sub copy -->
+									  <table class="body-sub">
+										<tr>
+										  <td>
+											<p class="sub">For security reasons, do not share this temporary password with anyone. If you did not request a password reset, please ignore this email or contact the StockHub support if you have questions</p>
+											<p class="sub" align="center>www.stockhub.tk</p>
+										  </td>
+										</tr>
+									  </table>
+									</td>
+								  </tr>
+								</table>
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
+								  <tr>
+									<td class="content-cell" align="center">
+									  <p class="sub align-center">&copy; 2018 StockHub. All rights reserved.</p>
+									  <p class="sub align-center">
+										Christ University,
+										Bangalore
+									  </p>
+									</td>
+								  </tr>
+								</table>
+							  </td>
+							</tr>
+						  </table>
+						</td>
+					  </tr>
+					</table>
+				  </body>
+				</html>';
+		
+				// $this->email->initialize($config);
+				$this->email->from('khawarey16@gmail.com');
+				$this->email->to($to);
+				$this->email->subject($subject);
+				$this->email->message($message);
+		
+				//Send mail 
+				if($this->email->send()){
+					$this->session->set_flashdata("flash-success","Email sent successfully.");
+					redirect('users/login');
+				}
+				else {
+					// show_error($this->email->print_debugger());
+					$this->session->set_flashdata("flash-danger","Failed to sent Email.");
+					redirect('home');
+				}
+			}
+        }
+			
 		// Check if username exists
 		public function check_username_exists($username){
 			$this->form_validation->set_message('check_username_exists', 'That username is taken. Please choose a different one');
@@ -182,7 +707,7 @@ if(mail($to, $subject, $message, $headers))
 			}
 		}
         
-        
+
 
 
 
