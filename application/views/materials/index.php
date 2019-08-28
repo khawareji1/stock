@@ -38,10 +38,10 @@
     </nav>
 
     <div id="static-content" class="col-md-10">
-    <h1><?= $title ?></h1>
+    <center><h1><?= $title ?></h1></center>
 
-    <input class="form-control" name="search" id="search" type="text" placeholder="Search" >
-    <div class="list-group" id="finalResult"></div>
+<!--    <input class="form-control" name="search" id="search" type="text" placeholder="Search" >
+    <div class="list-group" id="finalResult"></div> -->
 
     
 
