@@ -13,7 +13,7 @@
    </head>
 
 <div  class="container"> 
-    <h1 style="text-align:center;">StockHUB</h1>
+    <h1 style="text-align:center;">StockHub</h1>
 </div>
 
 <div class="container"> 
