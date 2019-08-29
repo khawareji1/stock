@@ -69,8 +69,7 @@
 
             if(empty($data['material'])){
                 show_404();
-            }
-
+        
             $data['material_title'] =$data['material']['rm_name'];
             $data['slug'] =$slug;
             $data['title'] = 'Create a Tender';
@@ -81,6 +80,7 @@
 			$this->load->view('materials/tenderOpen', $data);
 			$this->load->view('templates/footer');
         }
+}
 
         public function materialsearch(){
 			$search=  $this->input->post('search');
