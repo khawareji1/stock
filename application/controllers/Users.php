@@ -94,7 +94,7 @@
 							$this->session->set_userdata($user_data);
 							// Set message
 							$this->session->set_flashdata('flash-success', 'You are now logged in');
-							redirect('home');
+							redirect('users/userdashboard');
 						} else {
 							
 								// CHECKING IN ADMINS TABLE
