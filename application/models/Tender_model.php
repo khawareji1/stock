@@ -255,6 +255,81 @@
 			}
 
 		}
+        /*
+        public function email_send(){
+			//$email = $this->input->post('email');
+            //$email = $this->db->query("select * from ") 
+			//$id = $this->user_model->check_email_exists($email, 1);
+            
+            
+            $qr="Select * from vendors";
+            $rn=mysqli_query($conn,$qr);
+            
+            while($row=mysqli_fetch_assoc($rn))
+            {
+                echo $row['v_email'];
+            }
+            
+        }
+            
+			if(!empty($id)){
+				
+				$seed = str_split('abcdefghijklmnopqrstuvwxyz'
+								.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+								.'0123456789!@#$%^&*()');
+				
+				// $this->user_model->changePassword($hashpass , $id);
+ 				$this->send_mail($email, 'tenderpart');
+
+			} else {
+				$this->session->set_flashdata('flash-warning', 'Incorrect Email. Please provide an email which is given while registration.');
+				redirect('users/login');
+			}
+    }*/
 
         
-	}
+     /*   public send_mail($to, $type = NULL )
+        {
+            
+            $config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
+				'smtp_user' =>'khawarey16@gmail.com',
+				'smtp_pass' => '7209945082',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1'
+			);
+            
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+
+			if($type === NULL){
+				$this->session->set_flashdata("flash-danger","Internal Error : Mail Type not defined.");
+				redirect('home');
+			}
+			elseif($type === 'tenderpart'){
+				$subject = 'Product Shipped - StockHUB';
+				$message = 'Hello Mr. How Do You Do ?';
+            
+            // $this->email->initialize($config);
+				$this->email->from('khawarey16@gmail.com');
+				$this->email->to($to);
+				$this->email->subject($subject);
+				$this->email->message($message);
+		
+				//Send mail 
+				if($this->email->send()){
+					$this->session->set_flashdata("flash-success","Email sent successfully.");
+					//redirect('users/login');
+				}
+				else {
+					// show_error($this->email->print_debugger());
+					$this->session->set_flashdata("flash-danger","Failed to sent Email.");
+					redirect('home');
+				}
+        }
+
+        
+	}*/
+    }
