@@ -67,8 +67,9 @@
                                                 else{
                                                     $interval = $datetime1->diff($datetime2);
                                                 echo $interval->format('%d day %h hours %i minutes');
+                                        
                                                 }
-                                                
+                                        
                                             ?>
                                     </dd>
                                     <a style="display:none;" href="<?php echo base_url(); ?>tenders/view/<?php echo($active['tender_id']); ?>" >View</a>
@@ -79,6 +80,7 @@
 
                     </div>
                 </div>
+
 
             <?php endforeach;
                     if($activeTenders == NULL): ?>
